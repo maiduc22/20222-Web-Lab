@@ -5,10 +5,79 @@
   <style>
     table {
       border-collapse: collapse;
+      margin-bottom: 20px;
+      width: 100%;
     }
+
     th, td {
-      border: 1px solid black;
-      padding: 5px;
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    tr:hover {
+      background-color: #f5f5f5;
+    }
+
+    h2 {
+      margin-top: 20px;
+    }
+
+    form {
+      max-width: 400px;
+      margin: 20px auto;
+      background-color: #f9f9f9;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+
+    .success-message {
+      color: green;
+      margin-top: 10px;
+    }
+
+    .error-message {
+      color: red;
+      margin-top: 10px;
     }
   </style>
 </head>
@@ -36,7 +105,11 @@
       $insertQuery = "INSERT INTO Categories (Title, Description) VALUES ('$title', '$description')";
       $insertResult = mysqli_query($conn, $insertQuery);
 
-      
+      if ($insertResult) {
+        echo '<p class="success-message">New category inserted successfully.</p>';
+      } else {
+        echo '<p class="error-message">Error inserting category: ' . mysqli_error($conn) . '</p>';
+      }
     }
 
     // Query the categories
@@ -59,7 +132,7 @@
 
       echo '</table>';
     } else {
-      echo 'No categories found.';
+      echo '<p>No categories found.</p>';
     }
 
     // Close the database connection
